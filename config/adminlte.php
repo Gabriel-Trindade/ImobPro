@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>IMOBPRO</b>',
-    'logo_img' => 'public/images/imobpro_completo.png',
+    'logo_img' => 'images/imobpro_completo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,11 +86,11 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => 'public/images/imobpro_completo.png',
+            'path' => 'images/imobpro_mini.png',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 100,
+            'height' => 100,
         ],
     ],
 
@@ -113,7 +113,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'public/images/imobpro_mini.png',
+            'path' => 'images/imobpro_mini.png',
             'alt' => 'ImobPro Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,

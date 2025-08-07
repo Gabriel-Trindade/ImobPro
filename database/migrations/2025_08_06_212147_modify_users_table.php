@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('role', ['admin', 'agent'])->default('agent')->after('password');
+            $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null')->after('role');
         });
+
     }
 
     /**
@@ -21,6 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['company_id']);
+            $table->dropColumn(['role', 'company_id']);
+        });
     }
 };
