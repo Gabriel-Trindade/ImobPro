@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
-class Agent
+use Illuminate\Support\Facades\Auth;
+class Super
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,11 @@ class Agent
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user() || !$request->user()->isAgent()) {
-            return redirect('/auth/login')->with('error', 'Você não tem acesso de agente.');
-        }
 
+        if (!$request->auth()->check() || !$request->auth()->user()->isSuper()) {
+            dd('tem q parar aqui');
+            abort(403, 'Acesso restrito ao super usuário!');
+        }
         return $next($request);
     }
 }

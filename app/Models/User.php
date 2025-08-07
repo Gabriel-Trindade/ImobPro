@@ -59,4 +59,8 @@ class User extends Authenticatable
     {
         return $this->role === 'agent';
     }
+    public function isSuper(): bool
+    {
+        return $this->email === env('SUPER_ADMIN_EMAIL') && $this->password === env('SUPER_ADMIN_PASSWORD');
+    }
 }

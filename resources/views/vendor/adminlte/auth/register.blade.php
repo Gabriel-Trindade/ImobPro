@@ -1,8 +1,8 @@
 @extends('adminlte::auth.auth-page', ['authType' => 'register'])
 
 @php
-    $loginUrl = View::getSection('login_url') ?? config('adminlte.login_url', 'auth/login');
-    $registerUrl = View::getSection('register_url') ?? config('adminlte.register_url', 'auth/register');
+    $loginUrl = View::getSection('login_url') ?? config('adminlte.login_url', 'login');
+    $registerUrl = View::getSection('register_url') ?? config('adminlte.register_url', 'register');
 
     if (config('adminlte.use_route_url', false)) {
         $loginUrl = $loginUrl ? route($loginUrl) : '';
@@ -13,7 +13,7 @@
     }
 @endphp
 
-@section('auth_header', __('Cadastrar novo usuário'))
+@section('auth_header', __('adminlte::adminlte.register_message'))
 
 @section('auth_body')
     <form action="{{ $registerUrl }}" method="post">
@@ -22,7 +22,7 @@
         {{-- Name field --}}
         <div class="input-group mb-3">
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                value="{{ old('name') }}" placeholder="{{ __('Nome') }}" autofocus>
+                value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -58,7 +58,7 @@
         {{-- Password field --}}
         <div class="input-group mb-3">
             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                placeholder="{{ __('Senha') }}">
+                placeholder="{{ __('adminlte::adminlte.password') }}">
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -77,7 +77,7 @@
         <div class="input-group mb-3">
             <input type="password" name="password_confirmation"
                 class="form-control @error('password_confirmation') is-invalid @enderror"
-                placeholder="{{ __('Repita a Senha') }}">
+                placeholder="{{ __('adminlte::adminlte.retype_password') }}">
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -95,7 +95,7 @@
         {{-- Register button --}}
         <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
             <span class="fas fa-user-plus"></span>
-            {{ __('Registrar') }}
+            {{ __('adminlte::adminlte.register') }}
         </button>
     </form>
 @stop
@@ -103,7 +103,7 @@
 @section('auth_footer')
     <p class="my-0">
         <a href="{{ $loginUrl }}">
-            {{ __('Já tenho uma conta') }}
+            {{ __('adminlte::adminlte.i_already_have_a_membership') }}
         </a>
     </p>
 @stop

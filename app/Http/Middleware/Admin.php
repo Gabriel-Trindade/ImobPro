@@ -18,9 +18,6 @@ class Admin
         if (!$request->user() || !$request->user()->isAdmin()) {
             return redirect('/auth/login')->with('error', 'Você não tem acesso de administrador.');
         }
-        if ($request->user()->isAdmin()) {
-            return $next($request);
-        }
 
         return $next($request);
     }

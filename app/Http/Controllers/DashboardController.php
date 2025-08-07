@@ -12,18 +12,11 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->user = Auth::user();
-        $this->company_id = Auth::user()->company_id;
-        $this->middleware(['agent', 'admin']);
+        $this->company_id = Auth::user()->company_id ?? null;
     }
 
     public function index()
     {
-        if ($this->user->isAdmin()) {
-            return view('dashboard.admin', ['company_id' => $this->company_id]);
-        } elseif ($this->user->isAgent()) {
-            return view('dashboard.agent', ['company_id' => $this->company_id]);
-        }
-
-        return redirect('/auth/login')->with('error', 'Acesso não autorizado.');
+        return view('dashboard.index');
     }
 }
