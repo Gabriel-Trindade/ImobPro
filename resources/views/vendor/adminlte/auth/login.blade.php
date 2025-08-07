@@ -6,6 +6,7 @@
 
 @php
     $loginUrl = View::getSection('login_url') ?? config('adminlte.login_url', 'login');
+    $registerUrl = View::getSection('register_url') ?? config('adminlte.register_url', 'register');
     $passResetUrl = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset');
 
     if (config('adminlte.use_route_url', false)) {
@@ -19,7 +20,7 @@
     }
 @endphp
 
-@section('auth_header', __('adminlte::adminlte.login_message'))
+@section('auth_header', __('Entre para iniciar a sua sessão'))
 
 @section('auth_body')
     <form action="{{ $loginUrl }}" method="post">

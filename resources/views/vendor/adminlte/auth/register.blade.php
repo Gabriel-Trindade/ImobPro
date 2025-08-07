@@ -1,8 +1,8 @@
 @extends('adminlte::auth.auth-page', ['authType' => 'register'])
 
 @php
-    $loginUrl = View::getSection('login_url') ?? config('adminlte.login_url', 'login');
-    $registerUrl = View::getSection('register_url') ?? config('adminlte.register_url', 'register');
+    $loginUrl = View::getSection('login_url') ?? config('adminlte.login_url', 'auth/login');
+    $registerUrl = View::getSection('register_url') ?? config('adminlte.register_url', 'auth/register');
 
     if (config('adminlte.use_route_url', false)) {
         $loginUrl = $loginUrl ? route($loginUrl) : '';
