@@ -24,3 +24,24 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 })->middleware([Agent::class, Super::class, Admin::class]);
+
+
+// Route::group(['prefix' => 'companies'], function () {
+//     Route::get('/', [CompanyController::class, 'index'])->name('companies.index');
+//     Route::get('create', [CompanyController::class, 'create'])->name('companies.create');
+//     Route::post('store', [CompanyController::class, 'store'])->name('companies.store');
+//     Route::get('{id}', [CompanyController::class, 'show'])->name('companies.show');
+//     Route::get('{id}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
+//     Route::put('{id}', [CompanyController::class, 'update'])->name('companies.update');
+//     Route::delete('{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
+// });
+
+// Route::group(['prefix' => 'users'], function () {
+//     Route::get('/', [UserController::class, 'index'])->name('users.index');
+//     Route::get('create', [UserController::class, 'create'])->name('users.create');
+//     Route::post('store', [UserController::class, 'store'])->name('users.store');
+//     Route::get('{id}', [UserController::class, 'show'])->name('users.show');
+//     Route::get('{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+//     Route::put('{id}', [UserController::class, 'update'])->name('users.update');
+//     Route::delete('{id}', [UserController::class, 'destroy'])->name('users.destroy');
+// });

@@ -29,7 +29,11 @@
 
         {{-- Left Main Sidebar --}}
         @if(!$layoutHelper->isLayoutTopnavEnabled())
-            @include('adminlte::partials.sidebar.left-sidebar')
+            @include('adminlte::partials.sidebar.left-sidebar-super')
+        @elseif(Auth::user()->isAdmin())
+            @include('adminlte::partials.sidebar.left-sidebar-admin')
+        @elseif(Auth::user()->isAgent())
+            @include('adminlte::partials.sidebar.left-sidebar-agent')
         @endif
 
         {{-- Content Wrapper --}}

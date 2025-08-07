@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -302,7 +302,7 @@ return [
         // Navbar items:
         [
             'type' => 'navbar-search',
-            'text' => 'search',
+            'text' => 'Procurar',
             'topnav_right' => true,
         ],
         [
@@ -320,23 +320,19 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
+
+        ['header' => 'Cadastros'],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
+            'text' => 'Companias',
+            'url' => '/companies',
+            'icon' => 'fas fa-building',
+            'label' => $companies_count,
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url' => 'admin/settings',
+            'text' => 'Usuários',
+            'url' => '/users',
             'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
         ],
         [
             'text' => 'multilevel',
