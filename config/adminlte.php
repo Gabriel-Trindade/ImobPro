@@ -323,7 +323,7 @@ return [
 
         ['header' => 'Cadastros'],
         [
-            'text' => 'Companias',
+            'text' => 'Empresas',
             'url' => '/companies',
             'icon' => 'fas fa-building',
             'label' => $companies_count,

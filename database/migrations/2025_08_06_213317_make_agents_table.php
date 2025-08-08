@@ -32,8 +32,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('agents');
-        Schema::table('agents', function (Blueprint $table) {
-            $table->dropUnique('unique_user_license');
-        });
+
     }
 };

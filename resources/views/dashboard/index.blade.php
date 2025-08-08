@@ -12,7 +12,8 @@
 @stop
 
 @section('content')
-
+@php
+@endphp
 @stop
 
 

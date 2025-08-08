@@ -33,9 +33,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('companies');
-        Schema::table('companies', function (Blueprint $table) {
-            $table->dropUnique('unique_company_name');
-            $table->dropUnique('unique_company_registration');
-        });
+
     }
 };
