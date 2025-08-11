@@ -20,4 +20,13 @@ class Company extends Model
         return $this->hasMany(Agent::class);
     }
 
+    public function contacts()
+    {
+        return $this->hasMany(CompanyContact::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(CompanyAddress::class);
+    }
 }

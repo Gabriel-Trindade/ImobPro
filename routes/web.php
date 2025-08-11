@@ -15,6 +15,11 @@ use App\Http\Controllers\UsersController;
 
 Auth::routes();
 
+if (!Auth::check()) {
+    Route::get('/', [LoginController::class, 'showLoginForm']);
+} else {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+}
 
 Route::group(['prefix' => 'auth'], function () {
     Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
@@ -37,11 +42,11 @@ Route::group(['prefix' => 'companies'], function () {
         $index = $request->get('index', 0);
         return view('companies.partials.contact-fields', compact('index'))->render();
     })->name('contact-fields-partial');
-    // Route::post('store', [CompanyController::class, 'store'])->name('companies.store');
-    // Route::get('{id}', [CompanyController::class, 'show'])->name('companies.show');
-    // Route::get('{id}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
-    // Route::put('{id}', [CompanyController::class, 'update'])->name('companies.update');
-    // Route::delete('{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
+    Route::post('store', [CompanyController::class, 'store'])->name('companies.store');
+    Route::get('{id}', [CompanyController::class, 'show'])->name('companies.show');
+    Route::get('{id}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
+    Route::put('{id}', [CompanyController::class, 'update'])->name('companies.update');
+    Route::delete('{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 });
 
 Route::group(['prefix' => 'users'], function () {
