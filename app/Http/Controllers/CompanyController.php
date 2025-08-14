@@ -2,172 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCompanyRequest;
 use App\Models\Company;
-use Illuminate\Support\Facades\DB;
-
+use App\Services\CompanyService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
+    public function __construct(private CompanyService $companies) {}
 
-    public function index()
+    public function index(): View
     {
-        $companies = Company::all();
-
+        $companies = $this->companies->getAllCompanies();
         return view('companies.index', compact('companies'));
     }
 
-    public function create()
+    public function create(): View
     {
         return view('companies.register');
     }
 
-    public function edit($id)
+    public function edit(Company $company): View
     {
-        $company = Company::findOrFail($id);
         $company->load('address', 'contacts');
-
         return view('companies.register', compact('company'));
     }
 
-    public function store(Request $request)
+    public function store(StoreCompanyRequest $request): RedirectResponse
     {
-        $this->_validate($request);
-
-        try {
-            DB::transaction(function () use ($request) {
-
-                $company = Company::create([
-                    'name' => $request->string('name'),
-                    'trade_name' => $request->string('trade_name'),
-                    'registration_number' => $request->string('registration_number'),
-                ]);
-
-                $company->address()->create([
-                    'street'       => $request->string('address'),
-                    'number'       => $request->string('number'),
-                    'complement'   => $request->input('complement'),
-                    'neighborhood' => $request->string('neighborhood'),
-                    'city'         => $request->string('city'),
-                    'state'        => $request->string('state'),
-                    'zip_code'     => $request->string('zip_code'),
-                ]);
-
-                $contacts = $request->input('contacts', []);
-                foreach ($contacts as $contact) {
-                    if (!is_array($contact)) {
-                        continue;
-                    }
-
-                    $company->contacts()->create([
-                        'email'     => $contact['email']     ?? null,
-                        'instagram' => $contact['instagram'] ?? null,
-                        'facebook'  => $contact['facebook']  ?? null,
-                        'olx'       => $contact['olx']       ?? null,
-                        'website'   => $contact['website']   ?? null,
-                        'type'      => $contact['type']      ?? null,
-                    ]);
-                }
-            });
-
-            return redirect()
-                ->route('companies.index')
-                ->with('success', 'Empresa criada com sucesso!');
-        } catch (\Throwable $e) {
-            report($e);
-
-            return back()
-                ->withInput()
-                ->withErrors('Não foi possível criar a empresa. Tente novamente.');
-        }
+        $this->companies->create($request->all());
+        return to_route('companies.index')->with('success', 'Empresa criada com sucesso!');
     }
 
-    public function update(Request $request, Company $company)
+    public function update(StoreCompanyRequest $request, Company $company): RedirectResponse
     {
-        $this->_validate($request);
-
-        try {
-            DB::transaction(function () use ($request, $company) {
-                $company->update([
-                    'name' => $request->string('name'),
-                    'trade_name' => $request->string('trade_name'),
-                    'registration_number' => $request->string('registration_number'),
-                ]);
-
-                $company->address()->update([
-                    'street'       => $request->string('address'),
-                    'number'       => $request->string('number'),
-                    'complement'   => $request->input('complement'),
-                    'neighborhood' => $request->string('neighborhood'),
-                    'city'         => $request->string('city'),
-                    'state'        => $request->string('state'),
-                    'zip_code'     => $request->string('zip_code'),
-                ]);
-
-                $contacts = $request->input('contacts', []);
-                foreach ($contacts as $contact) {
-                    if (!is_array($contact)) {
-                        continue;
-                    }
-
-                    $company->contacts()->update([
-                        'email'     => $contact['email']     ?? null,
-                        'instagram' => $contact['instagram'] ?? null,
-                        'facebook'  => $contact['facebook']  ?? null,
-                        'olx'       => $contact['olx']       ?? null,
-                        'website'   => $contact['website']   ?? null,
-                        'type'      => $contact['type']      ?? null,
-                    ]);
-                }
-            });
-
-            return redirect()
-                ->route('companies.index')
-                ->with('success', 'Empresa atualizada com sucesso!');
-        } catch (\Throwable $e) {
-            report($e);
-
-            return back()
-                ->withInput()
-                ->withErrors('Não foi possível atualizar a empresa. Tente novamente.');
-        }
+        $this->companies->update($company, $request->all());
+        return to_route('companies.index')->with('success', 'Empresa atualizada com sucesso!');
     }
 
-    public function destroy($id)
+    public function destroy(Company $company): RedirectResponse
     {
         try {
-            DB::transaction(function () use ($id) {
-                $company = Company::findOrFail($id);
-                $company->contacts()->delete();
-                $company->address()->delete();
-                $company->delete();
-            });
+            $this->companies->delete($company);
 
-            return redirect()
-                ->route('companies.index')
-                ->with('success', 'Empresa excluída com sucesso!');
+            $company->refresh();
+            return to_route('companies.index')->with(
+                $company->trashed() ? 'success' : 'error',
+                $company->trashed() ? 'Empresa excluída com sucesso!' : 'Falha ao excluir empresa.'
+            );
         } catch (\Throwable $e) {
             report($e);
-
-            return back()
-                ->withInput()
-                ->withErrors('Não foi possível excluir a empresa. Tente novamente.');
+            return back()->with('error', 'Falha ao excluir empresa: ' . $e->getMessage());
         }
-    }
-
-    private function _validate(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'trade_name' => 'required|string|max:255',
-            'registration_number' => 'required|string|max:18',
-            'zip_code' => 'required|string|max:10',
-            'address' => 'required|string|max:255',
-            'number' => 'required|string|max:10',
-            'complement' => 'nullable|string|max:255',
-            'state' => 'required|string|max:2',
-            'city' => 'required|string|max:255',
-            'neighborhood' => 'required|string|max:255',
-        ]);
     }
 }

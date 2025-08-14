@@ -17,7 +17,7 @@ class Cnpj implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (!CompanyHelper::isCnpj($value)) {
-            $fail('O :attribute informado não é válido.');
+            $fail('O CNPJ informado não é válido.');
         }
     }
 }

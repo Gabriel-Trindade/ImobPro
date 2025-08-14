@@ -52,7 +52,7 @@
                         </a>
 
                         <form action="{{ route('companies.destroy', $company) }}" method="POST"
-                              onsubmit="return confirm('Confirma excluir a empresa #{{ $company->id }}?');"
+                              onsubmit="return confirm('Confirma excluir a empresa {{ $company->name }}?');"
                               class="d-inline">
                             @csrf
                             @method('DELETE')

@@ -74,8 +74,8 @@
                 </x-slot>
             </x-adminlte-input>
 
-            <x-adminlte-input name="address" label="Endereço" placeholder="Endereço" id="street"
-                value="{{ old('address', $company->address->street ?? '') }}" fgroup-class="col-md-6 col-sm-12" required>
+            <x-adminlte-input name="street" label="Endereço" placeholder="Endereço" id="street"
+                value="{{ old('street', $company->address->street ?? '') }}" fgroup-class="col-md-6 col-sm-12" required>
                 <x-slot name="prependSlot">
                     <div class="input-group-text"><i class="fas fa-road"></i></div>
                 </x-slot>

@@ -4,23 +4,25 @@ namespace App\Helpers;
 
 class CompanyHelper
 {
-    public static function isCnpj($cnpj)
+    public static function isCnpj(string $cnpj): bool
     {
-        $cnpj = preg_replace('/\D/', '', $cnpj);
+        if (strlen($cnpj) !== 14) return false;
+        if (preg_match('/^(\d)\1{13}$/', $cnpj)) return false;
 
-        if (strlen($cnpj) != 14) return false;
+        $nums = array_map('intval', str_split($cnpj));
 
-        if (preg_match('/(\d)\1{13}/', $cnpj)) return false;
-
-        for ($t = 12; $t < 14; $t++) {
-            $d = 0;
-            for ($c = 0; $c < $t; $c++) {
-                $d += $cnpj[$c] * (($t + 1) - $c);
+        $calc = function (array $slice, array $weights): int {
+            $sum = 0;
+            foreach ($slice as $i => $n) {
+                $sum += $n * $weights[$i];
             }
-            $d = ((10 * $d) % 11) % 10;
-            if ($cnpj[$c] != $d) return false;
-        }
+            $rest = $sum % 11;
+            return $rest < 2 ? 0 : 11 - $rest;
+        };
 
-        return true;
+        $d1 = $calc(array_slice($nums, 0, 12), [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+        $d2 = $calc(array_merge(array_slice($nums, 0, 12), [$d1]), [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+
+        return $nums[12] === $d1 && $nums[13] === $d2;
     }
 }
