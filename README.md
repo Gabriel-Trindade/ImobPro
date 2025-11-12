@@ -154,7 +154,7 @@ it('creates a company with address and contacts', function () {
 
 ---
 
-## 📸 Screenshots (placeholders)
+<!-- ## 📸 Screenshots (placeholders)
 
 > Add screenshots of your main flows:
 - **Dashboard** — overview
@@ -169,13 +169,13 @@ docs/
     dashboard.png
     properties-list.png
     properties-form.png
-```
+``` -->
 
 ---
 
 ## 🧱 Components / Modules
 
-Below is an **example “Component Highlight”**. Copy this block and reuse it for each new module (Properties, Agents, Contracts, Finance, Inspections, Reports, Calendar, etc.).
+<!-- Below is an **example “Component Highlight”**. Copy this block and reuse it for each new module (Properties, Agents, Contracts, Finance, Inspections, Reports, Calendar, etc.).
 
 ### ✨ Component Highlight — Companies (example)
 - **Goal**: register and manage companies/branches using the ERP
@@ -199,7 +199,7 @@ Below is an **example “Component Highlight”**. Copy this block and reuse it 
 - **Database (tables)**: `companies`, `addresses`, `contacts`  
 - **Tests (Pest)**:
   - Feature: create/edit, validation, redirects
-  - Unit/Service: transaction + `->load(['address','contacts'])`
+  - Unit/Service: transaction + `->load(['address','contacts'])` -->
 
 <!-- #### 🔧 Component Highlight — Template
 > Use this as a template for future modules:
