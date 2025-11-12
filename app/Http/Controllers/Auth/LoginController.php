@@ -18,8 +18,7 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        // APENAS PARA DEV
-        if (Auth::attempt($credentials) || $request->input('email') === env('SUPER_ADMIN_EMAIL')) {
+        if (Auth::attempt($credentials)) {
             return redirect()->intended('dashboard');
         }
 
@@ -27,5 +26,11 @@ class LoginController extends Controller
             'email' => 'The provided credentials do not match our records.',
             'password' => 'The provided credentials do not match our records.',
         ]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
     }
 }

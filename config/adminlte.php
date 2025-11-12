@@ -326,7 +326,7 @@ return [
             'text' => 'Empresas',
             'url' => '/companies',
             'icon' => 'fas fa-building',
-            'label' => $companies_count,
+            'label' => 'label',
             'label_color' => 'success',
         ],
         [
