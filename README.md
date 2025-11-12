@@ -201,7 +201,7 @@ Below is an **example “Component Highlight”**. Copy this block and reuse it 
   - Feature: create/edit, validation, redirects
   - Unit/Service: transaction + `->load(['address','contacts'])`
 
-#### 🔧 Component Highlight — Template
+<!-- #### 🔧 Component Highlight — Template
 > Use this as a template for future modules:
 
 ```
@@ -221,7 +221,7 @@ Below is an **example “Component Highlight”**. Copy this block and reuse it 
 - **Tests (Pest)**:
   - Feature: <cases>
   - Unit/Service: <cases>
-```
+``` -->
 
 ---
 
