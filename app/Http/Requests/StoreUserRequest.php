@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
-use App\Rules\Cnpj;
-
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCompanyRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +23,10 @@ class StoreCompanyRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'trade_name' => 'required|string|max:255',
-            'registration_number' => ['required', new Cnpj],
-            'address' => 'array|required',
-            'contacts' => 'array|nullable',
+            'email' => 'required|email|unique:users,email,' . $this->user->id,
+            'password' => 'required|string|min:8|confirmed',
+            'type' => 'required|in:admin,agent,super',
+            'license_number' => 'nullable|string|max:100',
         ];
     }
 }
