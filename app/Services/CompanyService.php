@@ -7,16 +7,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyService
 {
 
-    public function getCompaniesCount(): int
-    {
-        return Company::count();
-    }
-
-    /** @return Collection<int, Company> */
     public function getAllCompanies(): Collection
     {
         return Company::with(['address', 'contacts'])->get();

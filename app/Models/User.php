@@ -61,6 +61,6 @@ class User extends Authenticatable
     }
     public function isSuper(): bool
     {
-        return $this->email === env('SUPER_ADMIN_EMAIL') && $this->password === env('SUPER_ADMIN_PASSWORD');
+        return $this->role === 'super';
     }
 }

@@ -10,7 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserController;
 
 
 Auth::routes();
@@ -50,11 +50,11 @@ Route::group(['prefix' => 'companies'], function () {
 });
 
 Route::group(['prefix' => 'users'], function () {
-    Route::get('/', [UsersController::class, 'index'])->name('users.index');
-    // Route::get('create', [UserController::class, 'create'])->name('users.create');
-    // Route::post('store', [UserController::class, 'store'])->name('users.store');
-    // Route::get('{id}', [UserController::class, 'show'])->name('users.show');
-    // Route::get('{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-    // Route::put('{id}', [UserController::class, 'update'])->name('users.update');
-    // Route::delete('{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/', [UserController::class, 'index'])->name('users.index');
+    Route::get('create', [UserController::class, 'create'])->name('users.create');
+    Route::post('store', [UserController::class, 'store'])->name('users.store');
+    Route::get('{id}',   [UserController::class, 'show'])->name('users.show');
+    Route::get('{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
