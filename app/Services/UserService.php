@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
-use Illuminate\Http\Request;
+
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-class UsersController extends Controller
+
+class UserService
 {
     protected $company_id;
     protected $user;
@@ -13,9 +15,8 @@ class UsersController extends Controller
         $this->user = Auth::user();
         $this->company_id = Auth::user()->company_id ?? null;
     }
-
-    public function index()
+    public function getAllUsers()
     {
-        return view('users.index');
+        return User::where('company_id', $this->company_id)->get();
     }
 }

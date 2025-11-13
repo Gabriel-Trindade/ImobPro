@@ -321,13 +321,9 @@ return [
             'can' => 'manage-blog',
         ],
 
-        ['header' => 'Cadastros'],
         [
-            'text' => 'Empresas',
-            'url' => '/companies',
-            'icon' => 'fas fa-building',
-            'label' => 'label',
-            'label_color' => 'success',
+            'header' => 'Cadastros',
+            'key' => 'cadastros_header'
         ],
         [
             'text' => 'Usuários',
